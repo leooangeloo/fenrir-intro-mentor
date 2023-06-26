@@ -44,3 +44,58 @@ for (let i = 0; i < skills.length; i++) {
   // hint: appendChild method
   skillsList.appendChild(skill);
 }
+
+// Using “DOM Selection”, select the “leave_message” form by name attribute and store it in a variable named messageForm
+let messageForm = document.querySelector('[name="leave_message"]');
+
+// Add an event listener to the messageForm element that handles the “submit” event
+messageForm.addEventListener("submit", function(event) { 
+    event.preventDefault();
+    // Inside the callback function for your event listener, create a new variable for each of the three form fields and retrieve the value from the event
+    let name = event.target.usersName.value; let email = event.target.usersEmail.value; let message = event.target.usersMessage.value;
+    // Inside the callback function for your event listener, add a console.log statement to log the three variables you created in the previous step
+    console.log(name, email, message);
+
+    // Selecting #messages section by id
+    const messageSection = document.querySelector('#messages');
+
+    // Querying the messageSection to find the <ul> element
+    const messageList = messageSection.querySelector('ul');
+
+    // Create a new list item (li) element
+    const newMessage = document.createElement('li');
+
+    // Set the inner HTML of newMessage
+    newMessage.innerHTML = `
+      <a href="mailto:${email}">${name}</a>
+      <span>${message}</span>
+    `;
+
+    // Create a new <button> element
+    const removeButton = document.createElement('button');
+
+    // Set the inner text and type attribute of removeButton
+    removeButton.innerText = 'remove';
+    removeButton.type = 'button';
+
+    // Add an event listener to removeButton
+    removeButton.addEventListener('click', function() {
+      // Find the button's parent element
+      const entry = removeButton.parentNode;
+
+      // Remove the entry element from the DOM
+      entry.remove();
+    });
+
+    // Append the removeButton to the newMessage element
+    newMessage.appendChild(removeButton);
+
+    // Append the newMessage to the messageList element
+    messageList.appendChild(newMessage);
+
+    // Show the #messages section including its header if there are messages
+    messageSection.style.display = 'block';
+
+    // Clear the form
+    form.reset();
+  });
