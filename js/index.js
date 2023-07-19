@@ -134,3 +134,36 @@ window.addEventListener('click', function(event) {
     toggleMenu();
   }
 });
+
+//Create a new XMLHttpRequest object
+var githubRequest = new XMLHttpRequest();
+
+//Fetch GitHub Repositories
+githubRequest.open("GET", "https://api.github.com/users/leooangeloo/repos");
+githubRequest.send();
+
+//Handle Response from Server
+//// Add a "load" event listener on githubRequest object
+githubRequest.addEventListener("load", function(event) {
+    var repositories = JSON.parse(this.response);
+
+    //Display Repositories in List
+    let projectSection = document.getElementById('projects');
+
+    let reposList = projectSection.querySelector('ul');
+
+    for (let i = 0; i < repositories.length; i++) {
+        let repo = document.createElement('li');
+        let link = document.createElement("a");
+
+        repo.className="project_item";
+
+        //Add repo name and link
+        link.href = repositories[i].html_url;
+        link.innerText = repositories[i].name;
+        repo.appendChild(link);
+
+        reposList.appendChild(repo);
+
+    }
+});
