@@ -99,3 +99,38 @@ messageForm.addEventListener("submit", function(event) {
     // Clear the form
     form.reset();
   });
+
+function toggleMenu() {
+  var menu = document.querySelector('.menu');
+  var hamburgerIcon = document.querySelector('.hamburger-icon');
+
+  menu.classList.toggle('active');
+  hamburgerIcon.classList.toggle('active');
+}
+
+function scrollToSection(sectionId) {
+  var menu = document.querySelector('.menu');
+  if (menu.classList.contains('active')) {
+    toggleMenu();
+  }
+
+  var section = document.querySelector(sectionId);
+  var offsetTop = section.offsetTop;
+
+  var stickyHeaderHeight = document.querySelector('.sticky-header').offsetHeight;
+  var offset = offsetTop - stickyHeaderHeight;
+
+  window.scrollTo({
+    top: offset,
+    behavior: 'smooth'
+  });
+}
+
+window.addEventListener('click', function(event) {
+  var menu = document.querySelector('.menu');
+  var hamburgerMenu = document.querySelector('.hamburger-menu');
+
+  if (!menu.contains(event.target) && !hamburgerMenu.contains(event.target) && menu.classList.contains('active')) {
+    toggleMenu();
+  }
+});

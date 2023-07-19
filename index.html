@@ -6,28 +6,51 @@
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <meta name="description" content="Personal website of Leo Angelo Genota, a software engineer at Microsoft.">
   <meta name="keywords" content="Leo Angelo Genota, software engineer, Microsoft, computer science, cybersecurity">
-</head>
-<body class="body-container">
   <section>
     <h1 class="page-title">Leo Angelo Genota</h1>
     <img class="profile-image" src="images/leooangeloo-headshot.jpeg" alt="Leo Angelo Genota">
+    <header class="sticky-header">
+      <div class="hamburger-menu" onclick="toggleMenu()">
+        ☰
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="#about" onclick="scrollToSection('#about')">About</a></li>
+          <li><a href="#experience" onclick="scrollToSection('#experience')">Experience</a></li>
+          <li><a href="#skills" onclick="scrollToSection('#skills')">Skills</a></li>
+          <li><a href="#contact" onclick="scrollToSection('#contact')">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+  </section>
+</head>
+<body class="body-container">
+  <section id="about">
     <h2>About</h2>
     <p>I am currently a Software Engineer at Microsoft. I received my Bachelor of Science in Computer Science at Bowie State University and I am currently pursuing my Master of Science in Computer Science with a concentration in Cybersecurity.</p>
   </section>
-  <section>
+  <section id="experience">
     <h2>Experience</h2>
-    <ul>
-      <li>Software Engineer - Microsoft Corporation</li>
-      <li>Senior Software Engineer - Raytheon Technologies</li>
-      <li>Cyber Software Engineering Intern - Northrop Grumman</li>
-      <li>Honors Intern, Information Technology - Federal Bureau of Investigation</li>
-    </ul>
+    <div class="experience-grid">
+      <div class="experience-item">
+        Software Engineer - Microsoft Corporation
+      </div>
+      <div class="experience-item">
+        Senior Software Engineer - Raytheon Technologies
+      </div>
+      <div class="experience-item">
+        Cyber Software Engineering Intern - Northrop Grumman
+      </div>
+      <div class="experience-item">
+        Honors Intern, Information Technology - Federal Bureau of Investigation
+      </div>
+    </div>
   </section>
   <section id="skills">
     <h2>Skills</h2>
     <ul></ul>
   </section>
-  <section>
+  <section id="contact">
     <h2>Connect</h2>
     <ul>
       <li>Email: genota.leo@gmail.com</li>
@@ -37,18 +60,20 @@
   </section>
   <section>
     <h3>Leave a Message</h3>
-    <form name="leave_message">
-      <label for="usersName">Name:</label><br/>
-      <input type="text" name="usersName" required/><br/>
-
-      <label for="usersEmail">Email:</label><br/>
-      <input type="email" name="usersEmail" required/><br/>
-
-      <label for="usersMessage">Message:</label><br/>
-      <textarea name="usersMessage" required></textarea><br/>
-
-      <button type="submit">Submit</button><br/>
-    </form>
+    <div class="message-container">
+      <form name="leave_message" onsubmit="submitMessage(event)" class="message-form">
+        <label for="usersName">Name:</label>
+        <input type="text" name="usersName" required/>
+  
+        <label for="usersEmail">Email:</label>
+        <input type="email" name="usersEmail" required/>
+  
+        <label for="usersMessage">Message:</label>
+        <textarea name="usersMessage" required></textarea>
+  
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </section>
   <section id="messages">
     <h3>Messages</h3>
