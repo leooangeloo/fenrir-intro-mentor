@@ -1,90 +1,105 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Leo Angelo Genota</title>
-  <img>
-  <link rel="stylesheet" type="text/css" href="css/index.css">
-  <meta name="description" content="Personal website of Leo Angelo Genota, a software engineer at Microsoft.">
-  <meta name="keywords" content="Leo Angelo Genota, software engineer, Microsoft, computer science, cybersecurity">
-  <section>
-    <h1 class="page-title">Leo Angelo Genota</h1>
-    <img class="profile-image" src="images/leooangeloo-headshot.jpeg" alt="Leo Angelo Genota">
-    <header class="sticky-header">
-      <div class="hamburger-menu" onclick="toggleMenu()">
-        ☰
-      </div>
-      <nav class="menu">
+  <head>
+    <title>Leo Angelo Genota</title>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Personal website of Leo Angelo Genota, a software engineer at Microsoft.">
+    <meta name="keywords" content="Leo Angelo Genota, software engineer, Microsoft, computer science, cybersecurity">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/index.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Ysabeau+Infant:ital,wght@0,300;1,300&display=swap" rel="stylesheet"/>
+  </head>
+  <body>
+    <button class="scroll-top-btn" onclick="scrollToTop()" title="Scroll to Top">↑</button>
+    <div id="page-wrapper">
+      <header>
+        <section id="sub-header">
+          <h1 id="name">Leo Angelo Genota</h1>
+          <nav>
+            <ul>
+              <li><a href="#about">About</a></li>
+              <li><a href="#education">Education</a></li>
+              <li><a href="#experience">Experience</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#connect">Connect</a></li>
+            </ul>
+          </nav>
+        </section>
+        <img id="profile-picture" src="images/leooangeloo-headshot.jpeg" alt="Leo Angelo Genota" width="500px"/>
+      </header>
+
+      <section id="about">
+        <h1>About</h1>
+        <p>Highly motivated and accomplished software engineer with a successful track record in both industry and government sectors. I possess extensive experience in full stack development and delivery, having contributed to numerous projects throughout my career.</p>
+        <p>With a strong passion for cutting-edge technologies and a dedication to problem-solving, I thrive in dynamic environments that require innovative solutions. I am adept at collaborating with multidisciplinary teams, effectively communicating complex concepts, and delivering high-quality software solutions that align with client and organizational goals.</p>
+      </section>
+
+      <section id="education">
+        <h1>Education</h1>
         <ul>
-          <li><a href="#about" onclick="scrollToSection('#about')">About</a></li>
-          <li><a href="#experience" onclick="scrollToSection('#experience')">Experience</a></li>
-          <li><a href="#skills" onclick="scrollToSection('#skills')">Skills</a></li>
-          <li><a href="#projects" onclick="scrollToSection('#projects')">Projects</a></li>
-          <li><a href="#contact" onclick="scrollToSection('#contact')">Contact</a></li>
+          <li class="list-item" onclick="openModal('bowie')">Bachelor of Science in Computer Science | Bowie State University</li>
+          <li class="list-item" onclick="openModal('jmu')">Master of Science in Computer Science with a concentration in Cybersecurity | James Madison University</li>
         </ul>
-      </nav>
-    </header>
-  </section>
-</head>
-<body class="body-container">
-  <section id="about">
-    <h2>About</h2>
-    <p>I am currently a Software Engineer at Microsoft. I received my Bachelor of Science in Computer Science at Bowie State University and I am currently pursuing my Master of Science in Computer Science with a concentration in Cybersecurity.</p>
-  </section>
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="experience-grid">
-      <div class="experience-item">
-        Software Engineer - Microsoft Corporation
+      </section>
+
+      <section id="experience">
+        <h1>Experience</h1>
+        <ul>
+          <li class="list-item" onclick="openModal('microsoft')">Software Engineer - Microsoft Corporation</li>
+          <li class="list-item" onclick="openModal('raytheon')">Senior Software Engineer - Raytheon Technologies</li>
+          <li class="list-item" onclick="openModal('northrop')">Cyber Software Engineering Intern - Northrop Grumman</li>
+          <li class="list-item" onclick="openModal('fbi')">Honors Intern, Information Technology - Federal Bureau of Investigation</li>
+        </ul>
+      </section>
+
+      <div class="modal-container" id="modalContainer" onclick="closeModal(event)">
+          <div class="modal">
+              <span class="close" onclick="closeModal()">&times;</span>
+              <p id="modalText"></p>
+          </div>
       </div>
-      <div class="experience-item">
-        Senior Software Engineer - Raytheon Technologies
-      </div>
-      <div class="experience-item">
-        Cyber Software Engineering Intern - Northrop Grumman
-      </div>
-      <div class="experience-item">
-        Honors Intern, Information Technology - Federal Bureau of Investigation
-      </div>
+
+      <section id="skills">
+        <h2>Skills</h2>
+        <ul></ul>
+      </section>
+
+      <section id="projects">
+        <h2>Projects</h2>
+        <ul></ul>
+      </section>
+
+      <section id="connect" class="section side-by-side">
+        <h1>Connect</h1>
+        <ul>
+          <li>Email: <a href="mailto:genota.leo@gmail.com?subject=Hello%20there!%20Reaching%20regarding%20your%20portfolio%20page.">genota.leo@gmail.com</a></li>
+          <li>Github: <a href="https://github.com/leooangeloo">leooangeloo</a></li>
+          <li>LinkedIn: <a href="https://www.linkedin.com/in/leo-angelo-genota/">leo-angelo-genota</a></li>
+        </ul>
+      </section>
+
+      <section id="leave-message" class="section side-by-side">
+        <h2>Leave a Message</h2>
+        <form name="leave_message" onsubmit="submitMessage(event)">
+          <label for="usersName">Name:</label>
+          <input type="text" id="usersName" name="usersName" required="true"/><br />
+          <label for="usersEmail">Email:</label>
+          <input type="email" id="usersEmail" name="usersEmail" required="true"/><br />
+          <label for="usersMessage">Message:</label>
+          <textarea name="usersMessage" id="usersMessage" required="true"></textarea><br />
+          <button type="submit" value="submit" name="submit">Submit</button>
+        </form>
+      </section>
+      <section id="message-section">
+        <h2>Messages</h2>
+        <ul id="messages"></ul>
+      </section>
     </div>
-  </section>
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul></ul>
-  </section>
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul class="flex-container"></ul>
-</section>
-  <section id="contact">
-    <h2>Connect</h2>
-    <ul>
-      <li>Email: genota.leo@gmail.com</li>
-      <li>Github: https://github.com/leooangeloo</li>
-      <li>LinkedIn: https://www.linkedin.com/in/leo-angelo-genota/</li>
-    </ul>
-  </section>
-  <section>
-    <h3>Leave a Message</h3>
-    <div class="message-container">
-      <form name="leave_message" onsubmit="submitMessage(event)" class="message-form">
-        <label for="usersName">Name:</label>
-        <input type="text" name="usersName" required/>
-  
-        <label for="usersEmail">Email:</label>
-        <input type="email" name="usersEmail" required/>
-  
-        <label for="usersMessage">Message:</label>
-        <textarea name="usersMessage" required></textarea>
-  
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  </section>
-  <section id="messages">
-    <h3>Messages</h3>
-    <ul></ul>
-  </section>
-  <footer></footer>
-  <script src="js/index.js"></script>
-</body>
+    <footer></footer>
+    <script src="js/index.js"></script>
+  </body>
 </html>

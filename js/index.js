@@ -1,169 +1,146 @@
-// Create a new date object and store it in a variable named today
-var today = new Date();
+let currentDate = new Date();
+let thisYear = currentDate.getFullYear();
 
-// Retrieve the current year from your date object and store it in a variable named thisYear
-var thisYear = today.getFullYear();
+const footer = document.querySelector("footer");
+const copyright = document.createElement("p");
+copyright.innerHTML = `<small>Leo Angelo Genota &copy; ${thisYear}</small>`;
 
-// Using "DOM Selection", select the <footer> element from the DOM and store it in a variable named footer
-var footer = document.querySelector('footer');
-
-// Create a new paragraph (p) element and store it in a variable named copyright
-var copyright = document.createElement('p');
-
-// Set the inner HTML of your element to display your name and the current year
-// Use unicode to insert a copyright symbol
-// hint: use thisYear variable from earlier
-// Learn more about unicode: https://www.w3schools.com/charsets/ref_html_entities_4.asp
-copyright.innerHTML = `Leo Angelo Genota &#169 ${thisYear}`;
-
-// Using "DOM Manipulation", append the element to the footer
-// hint: appendChild method
 footer.appendChild(copyright);
 
-// List your technical skills by creating an Array of String values and store it in a variable named skills
-let skills = ["HTML", "CSS", "JavaScript", "Python", "Java", "C#", "SQL"];
+let skills = ["HTML", "CSS", "JavaScript", "C#", "C++", "Java", "C", ".NET", "Angular", "Typescript", "Spring Boot", "SQL", "Git", "GitHub", "SharePoint", "Jira", "Confluence", "Visual Studio", "Visual Studio Code", "Eclipse", "IntelliJ", "Postman", "Wireshark", "Kali Linux", "macOS", "Windows", "Linux", "Microsoft Azure", "Microsoft Azure DevOps", "Microsoft Azure Active Directory"];
 
-// Using "DOM Selection", select the #skills section by id and store it in a variable named skillsSection
-// hint: querySelector or getElementById method
-let skillsSection = document.getElementById("skills");
+let skillsSelection = document.getElementById("skills");
+let skillsList = skillsSelection.querySelector("ul");
 
-// Using "DOM Selection", query the skillsSection (instead of the entire document) to find the <ul> element and store it in a variable named skillsList
-let skillsList = skillsSection.querySelector("ul");
-
-// Create a for loop to iterate over your skills Array, starting at index 0
 for (let i = 0; i < skills.length; i++) {
-  // Inside the loop, create a new list item (li) element and store it in a variable named skill
-  // hint: createElement method
-  let skill = document.createElement("li");
-
-  // On the next line, set the inner text of your skill variable to the value of the current Array element
-  // hint: access the Array element using bracket notation
+  const skill = document.createElement("li");
   skill.innerText = skills[i];
 
-  // On the next line, append the skill element to the skillsList element
-  // hint: appendChild method
   skillsList.appendChild(skill);
 }
 
 // Using “DOM Selection”, select the “leave_message” form by name attribute and store it in a variable named messageForm
-let messageForm = document.querySelector('[name="leave_message"]');
+const messageForm = document.getElementsByName("leave_message")[0];
+const messages = document.getElementById("messages");
+const messageSection= document.getElementById("message-section");
+
+messages.parentNode.style.display = "none";
 
 // Add an event listener to the messageForm element that handles the “submit” event
-messageForm.addEventListener("submit", function(event) { 
-    event.preventDefault();
-    // Inside the callback function for your event listener, create a new variable for each of the three form fields and retrieve the value from the event
-    let name = event.target.usersName.value; let email = event.target.usersEmail.value; let message = event.target.usersMessage.value;
-    // Inside the callback function for your event listener, add a console.log statement to log the three variables you created in the previous step
-    console.log(name, email, message);
+//Event listener to append message and userInfo to message list
+messageForm.addEventListener("submit", (event) => {
+  event.preventDefault();
 
-    // Selecting #messages section by id
-    const messageSection = document.querySelector('#messages');
+  //grabs user info and message and puts it into newMessage variable
+  const usersName = event.target.usersName.value;
+  const usersEmail = event.target.usersEmail.value;
+  let usersMessage = event.target.usersMessage.value;
+  const newMessage = document.createElement("li");
+  newMessage.innerHTML = `<a href='mailto:${usersEmail}'>${usersName} </a><p>${usersMessage}</p>`;
 
-    // Querying the messageSection to find the <ul> element
-    const messageList = messageSection.querySelector('ul');
+  //toggles messageSection to default display behavior when appending message
+  messages.parentNode.style.display = "";
 
-    // Create a new list item (li) element
-    const newMessage = document.createElement('li');
+  //creates a remove button
+  const removeButton = document.createElement("button");
+  removeButton.innerText = "remove";
+  removeButton.type = "button";
 
-    // Set the inner HTML of newMessage
-    newMessage.innerHTML = `
-      <a href="mailto:${email}">${name}</a>
-      <span>${message}</span>
-    `;
+  // appends message and buttons
+  newMessage.appendChild(removeButton);
+  messages.appendChild(newMessage);
 
-    // Create a new <button> element
-    const removeButton = document.createElement('button');
+  // resets the form
+  messageForm.reset();
+});
 
-    // Set the inner text and type attribute of removeButton
-    removeButton.innerText = 'remove';
-    removeButton.type = 'button';
+messages.addEventListener("click", (e) => {
+  if (e.target.type === "button") {
+    const button = e.target.innerText;
+    const entry = e.target.parentNode;
 
-    // Add an event listener to removeButton
-    removeButton.addEventListener('click', function() {
-      // Find the button's parent element
-      const entry = removeButton.parentNode;
+    const buttonActions = {
+      remove: () => {
+        entry.remove();
+        if (messages.children.length === 0) {
+          messages.parentNode.style.display = "none";
+        }
+      }
+    };
 
-      // Remove the entry element from the DOM
-      entry.remove();
-    });
-
-    // Append the removeButton to the newMessage element
-    newMessage.appendChild(removeButton);
-
-    // Append the newMessage to the messageList element
-    messageList.appendChild(newMessage);
-
-    // Show the #messages section including its header if there are messages
-    messageSection.style.display = 'block';
-
-    // Clear the form
-    form.reset();
-  });
-
-function toggleMenu() {
-  var menu = document.querySelector('.menu');
-  var hamburgerIcon = document.querySelector('.hamburger-icon');
-
-  menu.classList.toggle('active');
-  hamburgerIcon.classList.toggle('active');
-}
-
-function scrollToSection(sectionId) {
-  var menu = document.querySelector('.menu');
-  if (menu.classList.contains('active')) {
-    toggleMenu();
-  }
-
-  var section = document.querySelector(sectionId);
-  var offsetTop = section.offsetTop;
-
-  var stickyHeaderHeight = document.querySelector('.sticky-header').offsetHeight;
-  var offset = offsetTop - stickyHeaderHeight;
-
-  window.scrollTo({
-    top: offset,
-    behavior: 'smooth'
-  });
-}
-
-window.addEventListener('click', function(event) {
-  var menu = document.querySelector('.menu');
-  var hamburgerMenu = document.querySelector('.hamburger-menu');
-
-  if (!menu.contains(event.target) && !hamburgerMenu.contains(event.target) && menu.classList.contains('active')) {
-    toggleMenu();
+    buttonActions[button](e);
   }
 });
 
-//Create a new XMLHttpRequest object
-var githubRequest = new XMLHttpRequest();
-
-//Fetch GitHub Repositories
-githubRequest.open("GET", "https://api.github.com/users/leooangeloo/repos");
+const githubRequest = new XMLHttpRequest();
+githubRequest.open(
+  "GET",
+  "https://api.github.com/users/leooangeloo/repos"
+);
 githubRequest.send();
+githubRequest.onload = () => {
+  repositories = JSON.parse(githubRequest.response);
+  console.log(repositories);
 
-//Handle Response from Server
-//// Add a "load" event listener on githubRequest object
-githubRequest.addEventListener("load", function(event) {
-    var repositories = JSON.parse(this.response);
+  const projectSection = document.getElementById("projects");
+  const projectList = projectSection.querySelector("ul");
+  for (let i = 0; i < repositories.length; i++) {
+    if(repositories[i].private !== true){
+      const project = document.createElement("li");
+      const projectLink = document.createElement("a");
+      projectLink.setAttribute("href", `${repositories[i].html_url}`);
+      
+      if(repositories[i].description !== null){
+        projectLink.innerText = `${repositories[i].name} : ${repositories[i].description}`;
+      } else  {
+        projectLink.innerText = `${repositories[i].name}`;
+      }
 
-    //Display Repositories in List
-    let projectSection = document.getElementById('projects');
-
-    let reposList = projectSection.querySelector('ul');
-
-    for (let i = 0; i < repositories.length; i++) {
-        let repo = document.createElement('li');
-        let link = document.createElement("a");
-
-        repo.className="project_item";
-
-        //Add repo name and link
-        link.href = repositories[i].html_url;
-        link.innerText = repositories[i].name;
-        repo.appendChild(link);
-
-        reposList.appendChild(repo);
-
+      project.appendChild(projectLink);
+      projectList.appendChild(project);
     }
-});
+  }
+};
+
+var modalTexts = {
+  microsoft: "Software Engineer/Airgap Engineer • April 2022 – Present •	Currently working on an internally used full-stack application that provides email content management and delivery services to customers in regions around the world. Serving as a high-side Designated Responsible Individual (DRI) and engineer responsible for the health and management of Azure Airgap Cost Management services while on-call. As a Primary Azure Airgap DRI, handling incidents and customer issues ranging in severity, working to investigate and mitigate issues at hand. Ensure that the services are healthy and functional and that any issues that arise are handled properly and within the designated timeframes.",
+  raytheon: "Senior Software Engineer – Falls Technology LLC • August 2021 – April 2022 and Senior Software Engineer II – Raytheon Intelligence & Space • July 2020 – August 2021 •	Full Stack Web Development: Proficient in utilizing notable and widely used web technologies for developing robust, secure, and production-ready web applications with high visibility. Technology Stack: Experienced in working with Angular as a web application framework, coding in TypeScript and JavaScript, as well as using Java and Spring Boot for the backend development.",
+  northrop: "Cyber Software Engineering Intern • June 2019 – May 2020 •	Research and development on macOS and Linux operating systems and related technologies and methodologies. Utilized Gogs Git service to document project goals, achievements, and instructional wiki pages and to enhance collaboration. Presented current work to the customer and provided proof of concepts being researched through demonstrations.",
+  fbi: "Information Technology Honors Intern • June 2018 – April 2019 •	Designed and developed SharePoint 2013 and SharePoint Online sites using HTML, CSS, and JavaScript. Provided customer support for SharePoint 2013 and SharePoint Online. Assisted customers with managing content and configuring permissions. Trained SharePoint users. Captured and analyzed user technical requirements to solve business process challenges using SharePoint. ",
+  bowie: "Bachelor of Science in Computer Science • Bowie State University - Bowie, Maryland • Relevant Courses: Computer Science I & II, Discrete Structures, Data Structures and Algorithms, Internet Programming, Systems Programming I & II, Object-Oriented Design, Database Management, Computer Organization, Programming Languages, Computer Ethics, Computer Architecture, Operating Systems, Computer Graphics, Artificial Intelligence, Design & Analysis of Algorithms",
+  jmu: "Master of Science in Computer Science • James Madison University - Harrisonburg, Virginia (Graduating Spring 2024) • Relevant Courses: Secure Programming, Networks and Network Security, Operating Systems, Computer Security, Ethics Law and Policy in Cyberspace, Computer Forensics, Cryptography: Algorithms and Applications, Advanced Network Security"
+};
+
+function openModal(modalId) {
+  var modalContainer = document.getElementById('modalContainer');
+  var modalText = document.getElementById('modalText');
+
+  // Get the text from the modalTexts object based on the provided modalId
+  var text = modalTexts[modalId];
+
+  modalText.textContent = text;
+  modalContainer.style.display = 'block';
+}
+
+function closeModal() {
+  var modalContainer = document.getElementById('modalContainer');
+  modalContainer.style.display = 'none';
+}
+
+// Show the scroll-to-top button when the user scrolls down
+window.onscroll = function () {
+  var button = document.querySelector('.scroll-top-btn');
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      button.classList.add('show');
+      button.classList.add('top'); // Add the "top" class when the button is shown
+  } else {
+      button.classList.remove('show');
+      button.classList.remove('top'); // Remove the "top" class when the button is hidden
+  }
+};
+
+// Scroll to the top of the page when the button is clicked
+function scrollToTop() {
+  // Scroll smoothly to the top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
